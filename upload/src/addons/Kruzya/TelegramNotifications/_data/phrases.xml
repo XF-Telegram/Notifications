@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="cron_entry.telegram_notifications" version_id="1000070" version_string="1.0.0"><![CDATA[[Telegram] Notifications Queue Worker]]></phrase>
+  <phrase title="permission.telegram_notifications" version_id="1000070" version_string="1.0.0"><![CDATA[Receive notifications in Telegram]]></phrase>
+  <phrase title="telegram_notifications" version_id="1000070" version_string="1.0.0"><![CDATA[Receive notifications in Telegram]]></phrase>
+  <phrase title="telegram_notifications.note" version_id="1000070" version_string="1.0.0"><![CDATA[<b>Note</b>: You must allow messages from the bot.]]></phrase>
+  <phrase title="telegram_preferences" version_id="1000070" version_string="1.0.0"><![CDATA[Telegram]]></phrase>
+  <phrase title="tg_notifications.conversations_create" version_id="1000070" version_string="1.0.0"><![CDATA[{sender} created a conversation {conversation} at {board}.]]></phrase>
+  <phrase title="tg_notifications.conversations_invite" version_id="1000070" version_string="1.0.0"><![CDATA[{sender} invited you to conversation {conversation} at {board}.]]></phrase>
+  <phrase title="tg_notifications.conversations_reply" version_id="1000070" version_string="1.0.0"><![CDATA[{sender} replied to conversation {conversation} at {board}.]]></phrase>
+</phrases>

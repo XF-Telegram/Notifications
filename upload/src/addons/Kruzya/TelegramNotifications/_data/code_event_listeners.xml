@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<code_event_listeners>
+  <listener event_id="entity_post_save" execute_order="10" callback_class="Kruzya\TelegramNotifications\Listener" callback_method="saveAlert" active="1" hint="XF\Entity\UserAlert" description="Listens all alert entity creating"/>
+  <listener event_id="entity_structure" execute_order="15" callback_class="Kruzya\TelegramNotifications\Listener" callback_method="editUserStructure" active="1" hint="Kruzya\Telegram\Entity\User" description="Add a field &quot;notifications&quot; to entity"/>
+</code_event_listeners>
