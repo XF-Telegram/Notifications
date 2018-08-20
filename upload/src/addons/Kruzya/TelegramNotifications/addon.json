@@ -2,12 +2,12 @@
     "legacy_addon_id": "",
     "title": "[Telegram] Notifications",
     "description": "Provides the ability to receive notifications via Telegram",
-    "version_id": 1000070,
-    "version_string": "1.0.0",
+    "version_id": 1001070,
+    "version_string": "1.0.1",
     "dev": "CrazyHackGUT aka Kruzya",
     "dev_url": "https://kruzya.me/",
-    "faq_url": "https://xenforo.info/resources/6733/field?field=faq",
-    "support_url": "https://xenforo.info/resources/6733/",
+    "faq_url": "",
+    "support_url": "https://github.com/XF-Telegram/Notifications",
     "extra_urls": [],
     "require": {
         "Kruzya/Telegram":  [

@@ -78,14 +78,12 @@ class HtmlPurifier {
     foreach ($node->attributes as $attribute) {
       $name = $attribute->name;
       if (!Utils::itemExists($attributeKeys, $name)) {
-        $this->_log('deleting attribute #1 ' . $name);
         $attributesToDelete[] = $name;
       }
     }
 
     // Delete all required attributes.
     foreach ($attributesToDelete as $attribute) {
-      $this->_log('deleting attribute #2 ' . $attribute);
       $node->removeAttribute($attribute);
     }
   }
