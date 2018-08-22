@@ -11,14 +11,12 @@ class Notifications {
       ->fetch();
 
     foreach ($notifications as $notification) {
-      $result = CoreUtils::api()->sendMessage($notification->options);
+      $result = Utils::api()->sendMessage($notification->options);
 
-      if ($result['ok'])
-        $notification->status = 'finished';
-      else {
+      if ($result['ok']) {
         $notification->status = 'failed';
-        file_put_contents('C:/OSPanel/domains/xf.kruzya.me/src/addons/Kruzya/TelegramNotifications/result.txt', json_encode($result));
-      }
+      } else
+        $notification->status = 'finished';
 
       $notification->save();
     }

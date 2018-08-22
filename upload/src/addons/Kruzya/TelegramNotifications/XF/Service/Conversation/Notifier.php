@@ -23,7 +23,7 @@ class Notifier extends XFCP_Notifier {
 
     /** @var \XF\Entity\User $user */
     foreach ($notifyUsers as $receiver) {
-      if (!$receiver->hasPermission('telegram', 'notifications')) {
+      if ($receiver == $sender || !$receiver->hasPermission('telegram', 'notifications')) {
         // this user don't have permission to receive notifications.
         continue;
       }
