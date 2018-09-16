@@ -31,22 +31,24 @@ class HtmlPurifier {
 
   public function stripAttributes(array $allowedAttributes = []) {
     $dom = new \DOMDocument('1.0', 'utf-8');
-    if ($dom->loadHTML('<?xml encoding="UTF-8">' . $this->text)) {
-      foreach ($dom->childNodes as $item) {
-        if ($item->nodeType == XML_PI_NODE) {
-          $dom->removeChild($item);
-        }
+    if (!$dom->loadHTML('<?xml encoding="UTF-8">' . $this->text)) {
+      return;
+    }
+
+    foreach ($dom->childNodes as $item) {
+      if ($item->nodeType == XML_PI_NODE) {
+        $dom->removeChild($item);
       }
     }
 
-    $body = $dom->getElementsByTagName('body');
-    $body = $body->item(0);
+    $body = $dom->getElementsByTagName('body')->item(0);
     $this->walkNode($allowedAttributes, $body);
 
     $NewDocument = new \DOMDocument();
     $NewDocument->appendChild($NewDocument->importNode($body->ownerDocument->documentElement->firstChild, true));
 
-    $this->text = trim(str_replace(['<body>', '</body>'], '', $NewDocument->saveHTML()));
+    $this->text = str_replace(['<body>', '</body>'], '', $NewDocument->saveHTML());
+    $this->text = trim(str_replace('&nbsp;', ' ', $this->text));
 
     return $this;
   }
