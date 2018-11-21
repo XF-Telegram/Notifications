@@ -6,7 +6,7 @@ use XF\Mvc\Entity\Entity;
 
 class Notification extends Entity {
   public static function getStructure(Structure $structure) {
-    $structure->table       = 'tg_messages_queue';
+    $structure->table       = 'xf_tg_messages_queue';
     $structure->shortName   = 'Kruzya\\TelegramNotifications:Notification';
     $structure->primaryKey  = 'id';
 
