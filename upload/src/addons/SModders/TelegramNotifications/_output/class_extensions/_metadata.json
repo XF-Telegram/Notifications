@@ -1,0 +1,14 @@
+{
+    "XF-Entity-UserOption_SModders-TelegramNotifications-XF-Entity-UserOption.json": {
+        "hash": "b78608e877ab89408d799f7d759cb18b"
+    },
+    "XF-Entity-User_SModders-TelegramNotifications-XF-Entity-User.json": {
+        "hash": "bffc60ed247c07bbc7f048653b935e58"
+    },
+    "XF-Pub-Controller-Account_SModders-TelegramNotifications-XF-Pub-Controller-Account.json": {
+        "hash": "e6141a690f3a5c0c43f42434d7f7cd49"
+    },
+    "XF-Service-Conversation-Notifier_SModders-TelegramNotifications-XF-Service-Conversation-Notifier.json": {
+        "hash": "dc0da2c3a5e2d00ba3c0b0773e87b428"
+    }
+}

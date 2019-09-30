@@ -1,0 +1,9 @@
+{
+    "event_id": "entity_post_save",
+    "execute_order": 10,
+    "callback_class": "SModders\\TelegramNotifications\\Listener",
+    "callback_method": "entity_post_save",
+    "active": true,
+    "hint": "XF\\Entity\\UserAlert",
+    "description": "Listen all alert and sends required to Telegram"
+}

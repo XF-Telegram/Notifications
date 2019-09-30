@@ -1,0 +1,26 @@
+{
+    "option.smtgn_enabled.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "dfa971b1782815747d0a49726fa9cd3b"
+    },
+    "option_explain.smtgn_enabled.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "permission.smtgn_smtgn_use.txt": {
+        "global_cache": false,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "16e98434aa96f094639a260195d1c272"
+    },
+    "smodders_tgnotifications.watch_conversation.txt": {
+        "global_cache": true,
+        "version_id": 2000010,
+        "version_string": "2.0.0 Alpha",
+        "hash": "3605bb4abdab24062961823a34e95e98"
+    }
+}
