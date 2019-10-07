@@ -45,7 +45,8 @@ class Notifier extends XFCP_Notifier
     protected function _canUserReceiveTelegramNotification(User $user, User $sender = null)
     {
         return (
-            $user->Option->smodders_tgnotifications_on_conversation
+            $user->canReceiveTelegramNotifications()
+            && $user->Option->smodders_tgnotifications_on_conversation
             && $this->_canUserReceiveNotification($user, $sender)
         );
     }
