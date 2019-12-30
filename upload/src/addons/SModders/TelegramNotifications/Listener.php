@@ -50,14 +50,21 @@ class Listener
                 // Code blocks.
                 'pre' => [], 'code'  => [],
             ]);
-            $text = $purifier->purify($alert->render());
+            $text = $purifier->purify($alert->render(), sprintf('%s_%s', $alert->content_type, $alert->action));
             
             \XF::setLanguage($oldLanguage);
             return $text;
         });
 
-        $boardUrl = \XF::app()->options()->boardUrl;
-        $text = str_replace('href="/', "href=\"{$boardUrl}/", $text);
+        // Build base URL.
+        $boardUrl = parse_url(\XF::app()->options()->boardUrl);
+        $baseUrl = sprintf("%s://%s", $boardUrl['scheme'], $boardUrl['host']);
+        if (array_key_exists('port', $boardUrl))
+        {
+            $baseUrl .= sprintf(':%d', $boardUrl['port']);
+        }
+        
+        $text = str_replace('href="/', sprintf('href="%s/', $baseUrl), $text);
         
         try {
             /** @var \TelegramBot\Api\BotApi $api */

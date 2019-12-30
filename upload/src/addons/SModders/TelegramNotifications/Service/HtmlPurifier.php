@@ -68,14 +68,36 @@ class HtmlPurifier extends AbstractService
     
     /**
      * @param $text
+     * @param $type
      * @return string
      */
-    public function purify($text)
+    public function purify($text, $type)
     {
         return $this->setText($text)
+            ->applyXfPatch($type)
             ->stripTags()
             ->stripAttributes()
+            ->applyLateChanges()
             ->getText();
+    }
+    
+    /**
+     * Applies all possible fixes for alert body.
+     *
+     * @param $type
+     * @return $this
+     */
+    public function applyXfPatch($type)
+    {
+        $xfVersion = \XF::$versionId;
+
+        //  https://xenforo.com/community/threads/173856/
+        if ($type == 'post_reaction' && ($xfVersion >= 2010670 && $xfVersion < 2010710)) // i guess this should be fixed in 2.1.7
+        {
+            $this->text = str_replace('{posterParams}', 'data-destroy-me="true"', $this->text);
+        }
+        
+        return $this;
     }
     
     /**
@@ -137,6 +159,16 @@ class HtmlPurifier extends AbstractService
      */
     protected function walkNode(\DOMNode $node)
     {
+        // Check requiring in destroying this node root.
+        if ($node->hasAttributes() && $node->attributes->getNamedItem('data-destroy-me') != null)
+        {
+            $this->applyInEnd(function () use ($node)
+            {
+                $content = $node->ownerDocument->createTextNode($node->textContent);
+                $node->parentNode->insertBefore($content, $node);
+            });
+        }
+        
         // Clear attributes (if required).
         if (isset($this->rules[$node->nodeName]))
         {
@@ -188,5 +220,32 @@ class HtmlPurifier extends AbstractService
         {
             $this->walkNode($childNode);
         }
+    }
+    
+    /** @var array */
+    protected $endExecutors;
+    
+    /**
+     * @param \Closure $action
+     */
+    protected function applyInEnd(\Closure $action)
+    {
+        $this->endExecutors[] = $action;
+    }
+    
+    /**
+     * @return $this
+     */
+    protected function applyLateChanges()
+    {
+        /** @var \Closure $action */
+        foreach ($this->endExecutors as $action)
+        {
+            $action();
+        }
+
+        $this->endExecutors = [];
+        
+        return $this;
     }
 }
