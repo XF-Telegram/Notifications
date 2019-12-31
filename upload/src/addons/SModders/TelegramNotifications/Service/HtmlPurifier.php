@@ -223,7 +223,7 @@ class HtmlPurifier extends AbstractService
     }
     
     /** @var array */
-    protected $endExecutors;
+    protected $endExecutors = [];
     
     /**
      * @param \Closure $action
