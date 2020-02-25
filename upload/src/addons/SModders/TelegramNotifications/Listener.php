@@ -30,11 +30,14 @@ class Listener
         }
 
         // Render text.
-        $text = \XF::asVisitor($user, function() use ($alert)
+        $text = \XF::asVisitor($user, function() use ($alert, $user)
         {
-            $oldLanguage = \XF::language();
             $app = \XF::app();
-            \XF::setLanguage($app->language($alert->Receiver->language_id));
+            $language = $app->language($user->language_id);
+            $oldLanguage = \XF::language();
+
+            \XF::setLanguage($language);
+            $app->templater()->setLanguage($language);
             
             /** @var \SModders\TelegramNotifications\Service\HtmlPurifier $purifier */
             $purifier = $app->service('SModders\TelegramNotifications:HtmlPurifier', [
@@ -51,7 +54,8 @@ class Listener
                 'pre' => [], 'code'  => [],
             ]);
             $text = $purifier->purify($alert->render(), sprintf('%s_%s', $alert->content_type, $alert->action));
-            
+
+            $app->templater()->setLanguage($oldLanguage);
             \XF::setLanguage($oldLanguage);
             return $text;
         });
