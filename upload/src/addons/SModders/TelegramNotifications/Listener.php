@@ -29,16 +29,14 @@ class Listener
             return;
         }
 
-        // Render text.
-        $text = \XF::asVisitor($user, function() use ($alert, $user)
-        {
-            $app = \XF::app();
-            $language = $app->language($user->language_id);
-            $oldLanguage = \XF::language();
+        $app = $alert->app();
 
-            \XF::setLanguage($language);
-            $app->templater()->setLanguage($language);
-            
+        /** @var \SModders\TelegramCore\SubContainer\Telegram $telegramContainer */
+        $telegramContainer = $app->container('smodders.telegram');
+
+        // Render text.
+        $text = $telegramContainer->asVisitor($user, function () use ($alert, $app)
+        {
             /** @var \SModders\TelegramNotifications\Service\HtmlPurifier $purifier */
             $purifier = $app->service('SModders\TelegramNotifications:HtmlPurifier', [
                 // URL links.
@@ -55,8 +53,6 @@ class Listener
             ]);
             $text = $purifier->purify($alert->render(), sprintf('%s_%s', $alert->content_type, $alert->action));
 
-            $app->templater()->setLanguage($oldLanguage);
-            \XF::setLanguage($oldLanguage);
             return $text;
         });
 
