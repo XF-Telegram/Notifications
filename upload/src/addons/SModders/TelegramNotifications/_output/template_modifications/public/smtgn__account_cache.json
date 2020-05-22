@@ -1,0 +1,9 @@
+{
+    "template": "account_preferences",
+    "description": "Adds the canReceiveTelegramNotifications() to variables",
+    "execution_order": 500009,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<xf:wrap template=\"account_wrapper\" />",
+    "replace": "$0\n<xf:set var=\"$smtgn_canReceive\" value=\"{{ $xf.visitor.canReceiveTelegramNotifications() }}\" />"
+}

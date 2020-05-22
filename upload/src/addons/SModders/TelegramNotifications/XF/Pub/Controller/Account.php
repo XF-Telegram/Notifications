@@ -17,13 +17,13 @@ class Account extends XFCP_Account
         $form = parent::preferencesSaveProcess($visitor);
         
         $optOutActions = $this->repository('XF:UserAlert')->getAlertOptOutActions();
-        $telegram = $this->filter('telegram', 'array-bool');
+        $telegram = $this->filter('smtgn_notifications', 'array-bool');
         $telegramConversations = $this->filter('option.smodders_tgnotifications_on_conversation', 'bool', false);
 
         $telegramOptOuts = [];
         foreach (array_keys($optOutActions) as $optOut)
         {
-            if (!empty($telegram[$optOut]))
+            if (empty($telegram[$optOut]))
             {
                 $telegramOptOuts[] = $optOut;
             }

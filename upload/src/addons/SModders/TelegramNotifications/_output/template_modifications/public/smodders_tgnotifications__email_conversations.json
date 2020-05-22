@@ -1,9 +1,9 @@
 {
     "template": "account_preferences",
     "description": "Add a checkbox for subscribing conversations on E-Mail",
-    "execution_order": 10,
+    "execution_order": 500011,
     "enabled": true,
     "action": "str_replace",
     "find": "<xf:if is=\"$alertOptOuts is not empty\">",
-    "replace": "<xf:if is=\"$xf.visitor.canReceiveTelegramNotifications()\">\n\t<xf:checkboxrow label=\"\">\n\t\t<xf:option name=\"option[smodders_tgnotifications_on_conversation]\" checked=\"{$xf.visitor.Option.smodders_tgnotifications_on_conversation}\"\n\t\t\t\t   label=\"{{ phrase('smodders_tgnotifications.watch_conversation') }}\" />\n\t</xf:checkboxrow>\n<xf:else />\n\t<xf:hiddenval name=\"option[push_on_conversation]\">{$xf.visitor.Option.smodders_tgnotifications_on_conversation}</xf:hiddenval>\n</xf:if>\n\n$0"
+    "replace": "<xf:if is=\"$smtgn_canReceive\">\n\t<xf:checkboxrow label=\"\">\n\t\t<xf:option name=\"option[smodders_tgnotifications_on_conversation]\" checked=\"{$xf.visitor.Option.smodders_tgnotifications_on_conversation}\"\n\t\t\t\t   label=\"{{ phrase('smodders_tgnotifications.watch_conversation') }}\" />\n\t</xf:checkboxrow>\n<xf:else />\n\t<xf:hiddenval name=\"option[push_on_conversation]\">{$xf.visitor.Option.smodders_tgnotifications_on_conversation}</xf:hiddenval>\n</xf:if>\n\n$0"
 }

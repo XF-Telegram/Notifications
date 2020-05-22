@@ -39,6 +39,15 @@ class Setup extends AbstractSetup
     {
         $this->applyGlobalPermission('smtgn', 'smtgn_use');
     }
+
+    public function upgrade2000053Step1()
+    {
+        $this->app->jobManager()->enqueueUnique(
+            'smtgn_reverseOptOut',
+            'SModders\TelegramNotifications:UpgradeUserOptOut',
+            [], false
+        );
+    }
     
     public function uninstallStep1()
     {

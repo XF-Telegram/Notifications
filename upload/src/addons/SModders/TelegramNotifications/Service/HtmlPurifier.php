@@ -120,7 +120,7 @@ class HtmlPurifier extends AbstractService
      */
     public function stripAttributes()
     {
-        $dom = new \DOMDocument('1.0', 'utf-8');
+        $dom = $this->getNewDom();
         if (!$dom->loadHTML('<?xml encoding="UTF-8">' . $this->text))
         {
             return $this;
@@ -131,13 +131,14 @@ class HtmlPurifier extends AbstractService
             if ($item->nodeType == XML_PI_NODE)
             {
                 $dom->removeChild($item);
+                break;
             }
         }
 
         $body = $dom->getElementsByTagName('body')->item(0);
         $this->walkNode($body);
 
-        $newDom = new \DOMDocument();
+        $newDom = $this->getNewDom();
         $newDom->appendChild($newDom->importNode($body->ownerDocument->documentElement->firstChild, true));
 
         $this->text = str_replace('&nbsp;', '', $newDom->saveHTML());
@@ -247,5 +248,13 @@ class HtmlPurifier extends AbstractService
         $this->endExecutors = [];
         
         return $this;
+    }
+
+    protected function getNewDom()
+    {
+        $dom = new \DOMDocument('1.0', 'utf-8');
+        $dom->substituteEntities = false;
+
+        return $dom;
     }
 }

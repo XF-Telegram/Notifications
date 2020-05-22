@@ -1,9 +1,9 @@
 {
     "template": "account_preferences",
     "description": "Add settings for Telegram Notifications",
-    "execution_order": 10,
+    "execution_order": 500010,
     "enabled": true,
     "action": "preg_replace",
     "find": "/<xf:if is=\"\\$canPush\">.*?<\\/xf:if>/s",
-    "replace": "$0\n<xf:if is=\"$xf.visitor.canReceiveTelegramNotifications()\">\n\t<li class=\"notificationChoices-choice notificationChoices-choice--telegram\">\n\t\t<xf:checkbox standalone=\"true\">\n\t\t\t<xf:option name=\"telegram[{$contentType}_{$action}]\"\n\t\t\t\t\t   checked=\"{{ $xf.visitor.Option.doesReceiveTelegram($contentType, $action) }}\"\n\t\t\t\t\t   label=\"{{ phrase('con_acc.smodders_telegram') }}\"\n\t\t\t\t\t   dependent=\"\" />\n\t\t</xf:checkbox>\n\t</li>\n</xf:if>"
+    "replace": "$0\n<xf:if is=\"$smtgn_canReceive\">\n\t<li class=\"notificationChoices-choice notificationChoices-choice--smtgn\">\n\t\t<xf:checkbox standalone=\"true\">\n\t\t\t<xf:option name=\"smtgn_notifications[{$contentType}_{$action}]\"\n\t\t\t\t\t   checked=\"{{ $xf.visitor.Option.doesReceiveTelegram($contentType, $action) }}\"\n\t\t\t\t\t   label=\"{{ phrase('con_acc.smodders_telegram') }}\"\n\t\t\t\t\t   dependent=\"\" />\n\t\t</xf:checkbox>\n\t</li>\n</xf:if>"
 }

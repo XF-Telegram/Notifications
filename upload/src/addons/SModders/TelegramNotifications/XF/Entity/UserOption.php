@@ -13,11 +13,20 @@ use XF\Mvc\Entity\Structure;
 
 /**
  * FIELDS
- * @property array[] $smodders_tgnotifications_optout
- * @property bool $smodders_tgnotifications_on_conversation
+ * @property array[] smodders_tgnotifications_optout
+ * @property bool smodders_tgnotifications_on_conversation
  */
 class UserOption extends XFCP_UserOption
 {
+    protected function _setupDefaults()
+    {
+        parent::_setupDefaults();
+
+        // We relies on defaults for Push notifications.
+
+        $this->smodders_tgnotifications_on_conversation = $this->push_on_conversation;
+    }
+
     public static function getStructure(Structure $structure)
     {
         $structure = parent::getStructure($structure);
@@ -29,7 +38,7 @@ class UserOption extends XFCP_UserOption
             ],
 
             'smodders_tgnotifications_on_conversation'  => [
-                'type' => self::BOOL, 'default' => true
+                'type' => self::BOOL, 'default' => true, 'changeLog' => false
             ]
         ];
         return $structure;
@@ -44,6 +53,6 @@ class UserOption extends XFCP_UserOption
 
         return ($this->doesReceiveAlert($contentType, $action)
             && is_array($this->smodders_tgnotifications_optout) // in_array() expects parameter 2 to be array, null given 🤔
-            && in_array("{$contentType}_{$action}", $this->smodders_tgnotifications_optout));
+            && (in_array("{$contentType}_{$action}", $this->smodders_tgnotifications_optout) ? false : true));
     }
 }
