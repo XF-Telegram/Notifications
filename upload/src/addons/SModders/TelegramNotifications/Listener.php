@@ -65,22 +65,23 @@ class Listener
         }
         
         $text = str_replace('href="/', sprintf('href="%s/', $baseUrl), $text);
-        
-        try {
-            /** @var \TelegramBot\Api\BotApi $api */
-            $api = \XF::app()->get('smodders.telegram')->api();
-            $api->sendMessage(
-                $user->Profile->connected_accounts['smodders_telegram'],
-                $text, 'HTML', true
-            );
-        }
-        catch (\Exception $e)
+
+        \XF::runLater(function () use ($user, $text)
         {
-            // Unsubscribe users from default alerts. We don't want try repeatedly send message.
-            $user->Option->smodders_tgnotifications_optout = [];
-            $user->Option->save();
-        }
+            try {
+                /** @var \TelegramBot\Api\BotApi $api */
+                $api = \XF::app()->get('smodders.telegram')->api();
+                $api->sendMessage(
+                    $user->Profile->connected_accounts['smodders_telegram'],
+                    $text, 'HTML', true
+                );
+            }
+            catch (\Exception $e)
+            {
+                // Unsubscribe users from default alerts. We don't want try repeatedly send message.
+                $user->Option->smodders_tgnotifications_optout = [];
+                $user->Option->save();
+            }
+        });
     }
-
-
 }

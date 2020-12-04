@@ -23,7 +23,7 @@ class Setup extends AbstractSetup
 	
 	public function installStep1()
     {
-        $this->alterTable('xf_user_option', function (Alter $table)
+        $this->alterUserOptionTable(function (Alter $table)
         {
             $table->addColumn('smodders_tgnotifications_optout', 'text')
                 ->comment('Comma-separated list of alerts from which the user has opted out. Example: \'post_like,user_trophy\'')
@@ -31,7 +31,8 @@ class Setup extends AbstractSetup
 
             $table->addColumn('smodders_tgnotifications_on_conversation', 'bool')
                 ->comment('Receive an Telegram upon receiving a conversation message')
-                ->after('push_on_conversation');
+                ->after('push_on_conversation')
+                ->setDefault(0);
         });
     }
 
@@ -48,12 +49,28 @@ class Setup extends AbstractSetup
             [], false
         );
     }
+
+    public function upgrade2000055Step1()
+    {
+        $this->alterUserOptionTable(function (Alter $table)
+        {
+            $table->changeColumn('smodders_tgnotifications_on_conversation')->setDefault(0);
+        });
+    }
     
     public function uninstallStep1()
     {
-        $this->alterTable('xf_user_option', function (Alter $table)
+        $this->alterUserOptionTable(function (Alter $table)
         {
             $table->dropColumns(['smodders_tgnotifications_optout', 'smodders_tgnotifications_on_conversation']);
         });
+    }
+
+    /**
+     * @param \Closure $closure
+     */
+    protected function alterUserOptionTable(\Closure $closure)
+    {
+        $this->alterTable('xf_user_option', $closure);
     }
 }
