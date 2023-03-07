@@ -109,7 +109,7 @@ class Telegram extends AbstractService
                 new InlineKeyboardMarkup([
                     [
                         [
-                            'text'  => \XF::phraseDeferred('open'),
+                            'text'  => \XF::phraseDeferred('open_link'),
                             'url'   => $this->getNotificationUrl(),
                         ]
                     ]
