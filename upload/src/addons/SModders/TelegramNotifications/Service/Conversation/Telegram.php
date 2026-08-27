@@ -81,7 +81,9 @@ class Telegram extends AbstractService
      */
     protected function getNotificationBody()
     {
-        $phrase = $this->language->phrase('push_conversation_' . $this->actionType, [
+        $prefix = \XF::$versionId >= 2030000 ? 'push_direct_message_' : 'push_conversation_';
+
+        $phrase = $this->language->phrase($prefix . $this->actionType, [
             'boardTitle' => $this->app->options()->boardTitle,
             'title' => $this->message->Conversation->title,
             'sender' => $this->sender->username
