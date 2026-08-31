@@ -22,8 +22,11 @@ class Listener
             return;
         }
 
-        // We're having some issues with alerts from ACP, so disable they.
-        if ($alert->content_type == 'user' && $alert->action == 'from_admin')
+        // We're having some issues with alerts sent from the ACP, so they're disabled by default.
+        if (
+            ($alert->content_type == 'user' && $alert->action == 'from_admin')
+            && !\XF::options()->smtgn_allowAdmin
+        )
         {
             return;
         }

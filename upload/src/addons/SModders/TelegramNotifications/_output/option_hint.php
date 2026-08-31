@@ -11,6 +11,7 @@
 namespace XF;
 
 /**
+ * @property bool|null $smtgn_allowAdmin Allow admin-sent alerts
  * @property bool|null $smtgn_enabled Enable notifications
  */
 class Options
