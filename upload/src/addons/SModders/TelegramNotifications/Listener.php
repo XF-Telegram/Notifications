@@ -46,6 +46,8 @@ class Listener
         // Render text.
         $text = $telegramContainer->asVisitor($user, function () use ($alert, $app)
         {
+            $libxmlErrors = libxml_use_internal_errors(true);
+
             /** @var \SModders\TelegramNotifications\Service\HtmlPurifier $purifier */
             $purifier = $app->service('SModders\TelegramNotifications:HtmlPurifier', [
                 // URL links.
@@ -62,6 +64,8 @@ class Listener
             ]);
             $text = $purifier->purify($alert->render(), sprintf('%s_%s', $alert->content_type, $alert->action));
 
+            libxml_clear_errors();
+            libxml_use_internal_errors($libxmlErrors);
             return $text;
         });
 
