@@ -1,9 +1,21 @@
 {
+    "option.smtgn_allowAdmin.txt": {
+        "global_cache": false,
+        "version_id": 2000070,
+        "version_string": "2.0.0",
+        "hash": "1c6267499ad8df5cf3cda909df91af3a"
+    },
     "option.smtgn_enabled.txt": {
         "global_cache": false,
         "version_id": 2000010,
         "version_string": "2.0.0 Alpha",
         "hash": "dfa971b1782815747d0a49726fa9cd3b"
+    },
+    "option_explain.smtgn_allowAdmin.txt": {
+        "global_cache": false,
+        "version_id": 2000070,
+        "version_string": "2.0.0",
+        "hash": "253c1802842f54029a1317ee790bfaa7"
     },
     "option_explain.smtgn_enabled.txt": {
         "global_cache": false,

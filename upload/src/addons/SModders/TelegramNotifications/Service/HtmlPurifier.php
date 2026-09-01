@@ -141,7 +141,7 @@ class HtmlPurifier extends AbstractService
         $newDom = $this->getNewDom();
         $newDom->appendChild($newDom->importNode($body->ownerDocument->documentElement->firstChild, true));
 
-        $this->text = str_replace('&nbsp;', '', $newDom->saveHTML());
+        $this->text = $newDom->saveXML($newDom->documentElement);
         $this->stripTags();
         
         return $this;

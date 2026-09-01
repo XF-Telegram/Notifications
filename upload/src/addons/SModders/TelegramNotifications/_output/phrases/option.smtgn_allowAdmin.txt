@@ -1,0 +1,1 @@
+Allow admin-sent alerts

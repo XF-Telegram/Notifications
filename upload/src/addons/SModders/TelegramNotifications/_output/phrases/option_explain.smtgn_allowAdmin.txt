@@ -1,0 +1,1 @@
+Alerts sent from the AdminCP using the <a href="/admin.php?users/alert">Alert users</a> page are excluded from being sent to Telegram by default due to reported issues. Enable this option to override the default behavior if Telegram alerts work correctly for you.

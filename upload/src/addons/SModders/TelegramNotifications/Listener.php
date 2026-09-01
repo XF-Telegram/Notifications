@@ -21,7 +21,16 @@ class Listener
         {
             return;
         }
-        
+
+        // We're having some issues with alerts sent from the ACP, so they're disabled by default.
+        if (
+            ($alert->content_type == 'user' && $alert->action == 'from_admin')
+            && !\XF::options()->smtgn_allowAdmin
+        )
+        {
+            return;
+        }
+
         // Skip this alert, if user can't receive or view him.
         $user = $alert->Receiver;
         if (!$alert->canView() || !$alert->isAlertRenderable() || !$user->Option->doesReceiveTelegram($alert->content_type, $alert->action))
@@ -41,13 +50,13 @@ class Listener
             $purifier = $app->service('SModders\TelegramNotifications:HtmlPurifier', [
                 // URL links.
                 'a' => ['href'],
-    
+
                 // Bold elements.
                 'b' => [], 'strong' => [],
-    
+
                 // Italic.
                 'i' => [], 'em' => [],
-    
+
                 // Code blocks.
                 'pre' => [], 'code'  => [],
             ]);
@@ -63,7 +72,7 @@ class Listener
         {
             $baseUrl .= sprintf(':%d', $boardUrl['port']);
         }
-        
+
         $text = str_replace('href="/', sprintf('href="%s/', $baseUrl), $text);
 
         \XF::runLater(function () use ($user, $text)
